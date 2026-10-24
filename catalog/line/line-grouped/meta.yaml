@@ -1,0 +1,43 @@
+id: line-grouped
+version: 2
+status: published
+title: 分组折线图
+category: line
+tags: [折线图, 多序列, 对比, 区间高亮]
+summary: 在同一坐标系内用多条折线对比多个国家的 GDP 走势，并标注全球化时期与历史高位。
+difficulty: beginner
+default_library: matplotlib
+order: 20
+theme: slate
+data:
+  source: data/gdp.csv
+  schema:
+    columns:
+      - { name: 年份, role: x, type: quantitative, required: true }
+      - { name: 博茨瓦纳, role: series, type: quantitative, optional: true }
+      - { name: 布基纳法索, role: series, type: quantitative, optional: true }
+      - { name: 布隆迪, role: series, type: quantitative, optional: true }
+      - { name: 喀麦隆, role: series, type: quantitative, optional: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 分组折线图, loc: left }
+  xlabel: 年份
+  ylabel: GDP（亿美元）
+  limits:
+    x: [1960, 2025]
+    y: [0, 530]
+  ticks:
+    x_major: 10
+    x_minor: 1
+    y_major: 100
+  legend: { loc: upper left, ncols: 2 }
+params:
+  - { key: line_width, type: number, default: 3, min: 1, max: 6 }
+  - { key: marker_size, type: number, default: 5, min: 2, max: 16 }
+elements:
+  - { key: line, label: 折线, group_by: column, size: line_width }
+  - { key: marker, label: 节点, group_by: column, size: marker_size }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

@@ -1,0 +1,31 @@
+id: scatter-polar
+version: 2
+status: published
+title: 极坐标分组散点图
+category: scatter
+tags: [散点图, 极坐标, 分组]
+summary: 把分组散点放到极坐标下，用角度与半径两个维度展示三组样本的扇形分布。
+difficulty: intermediate
+default_library: matplotlib
+order: 70
+theme: rose
+data:
+  source: data/polar.csv
+  schema:
+    columns:
+      - { name: 角度, role: x, type: quantitative, required: true }
+      - { name: 半径, role: y, type: quantitative, required: true }
+      - { name: 类型, role: series, type: categorical, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 极坐标分组散点图, loc: center }
+  legend: { loc: center right, ncols: 1 }
+params:
+  - { key: point_size, type: number, default: 100, min: 10, max: 400 }
+  - { key: point_alpha, type: number, default: 0.5, min: 0, max: 1 }
+elements:
+  - { key: point, label: 数据点, group_by: series, size: point_size, opacity: point_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

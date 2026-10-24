@@ -1,0 +1,36 @@
+id: heatmap-contour
+version: 2
+status: published
+title: 等值线热力图
+category: heatmap
+tags: [热力图, 等值线, 二维高斯]
+summary: 将二维高斯叠加场绘制为填充等值线，并叠加白色等值线标注取值。
+difficulty: intermediate
+default_library: matplotlib
+order: 10
+theme: rose
+data:
+  source: data/contour_grid.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: y, role: y, type: quantitative, required: true }
+      - { name: z, role: color, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 等值线热力图, loc: left }
+  xlabel: X轴
+  ylabel: Y轴
+  limits: { x: [-4, 4], y: [-4, 4] }
+params:
+  - { key: levels, type: integer, default: 50, min: 5, max: 200 }
+  - { key: line_levels, type: integer, default: 15, min: 0, max: 50 }
+  - { key: contour_alpha, type: number, default: 1, min: 0, max: 1 }
+  - { key: line_alpha, type: number, default: 1, min: 0, max: 1 }
+elements:
+  - { key: contour, label: 填充等值线, group_by: none, opacity: contour_alpha, color: false }
+  - { key: line, label: 等值线, group_by: none, opacity: line_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

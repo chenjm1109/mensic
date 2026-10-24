@@ -1,0 +1,38 @@
+id: bar-grouped
+version: 2
+status: published
+title: 分组柱状图
+category: bar
+tags: [柱状图, 分组, 对比]
+summary: 同一类别下并列放置多个系列，横向对比不同组别的数值。
+difficulty: beginner
+default_library: matplotlib
+order: 20
+theme: slate
+data:
+  source: data/grouped.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: ordinal, required: true }
+      - { name: 组别, role: series, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 分组柱状图, loc: left }
+  xlabel: 类别
+  ylabel: 数值
+  limits: { y: [0, 700] }
+  ticks: { y_major: 100 }
+  legend: { loc: upper right, ncols: 3 }
+params:
+  - { key: bar_width, type: number, default: 0.25, min: 0.1, max: 0.9 }
+  - { key: gap, type: number, default: 0.05, min: 0, max: 0.5 }
+  - { key: bar_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：按「组别」逐系列出块，与 chart.py 的配色顺序一致。
+elements:
+  - { key: bar, label: 柱子, group_by: series, size: bar_width, opacity: bar_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

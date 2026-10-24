@@ -1,0 +1,4 @@
+# 由 scripts/sync-android-python.mjs 生成，不入库
+renderer/
+sidecar.py
+fonts/

@@ -1,0 +1,38 @@
+id: line-twinx
+version: 2
+status: published
+title: 双坐标折线图
+category: line
+tags: [折线图, 双坐标, 双轴, 多序列]
+summary: 用左右两条纵轴同时呈现量纲不同的经济与人口序列，并以阴影标注内战时期。
+difficulty: advanced
+default_library: matplotlib
+order: 50
+theme: slate
+data:
+  source: data/liberia.csv
+  schema:
+    columns:
+      - { name: 年份, role: x, type: quantitative, required: true }
+      - { name: 经济, role: y, type: quantitative, required: true }
+      - { name: 人口, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 双坐标折线图, loc: left }
+  xlabel: 年份
+  limits:
+    x: [1955, 2026]
+    y: [0, 36]
+  ticks:
+    x_major: 10
+    x_minor: 1
+    y_major: 5
+  legend: { loc: upper left, ncols: 2 }
+params:
+  - { key: line_width, type: number, default: 3, min: 1, max: 6 }
+  - { key: marker_size, type: number, default: 5, min: 2, max: 16 }
+elements:
+  - { key: economy, label: 经济折线, group_by: none, size: line_width }
+  - { key: population, label: 人口折线, group_by: none, size: line_width }
+implementations:
+  - { library: matplotlib }

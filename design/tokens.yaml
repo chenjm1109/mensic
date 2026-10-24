@@ -1,0 +1,72 @@
+# 设计令牌 —— 全项目唯一视觉事实来源
+# 各绘图库的主题（matplotlib rcParams / plotly template / altair config）均由此编译而来。
+# 修改这里，所有库、所有专题、网站与导出包同步生效。
+
+color:
+  figure: "#ffffff"          # 画布背景
+  axes: "#fefaf9"            # 绘图区背景（默认玫瑰主题）
+  edge: "#ffffff"            # 边框
+  text: "#515a85"            # 文字
+  label: "#c0627a"           # 轴标签 / 刻度
+  grid: "#d3dce8"            # 网格线
+  # 分类色板（散点 / 折线 / 柱状等）
+  palette:
+    - "#e97a7a"
+    - "#5595d1"
+    - "#e5c679"
+    - "#5db4b4"
+    - "#bb7dcc"
+  # 连续色（热力图 / 等值线）
+  sequential:
+    - "#515a85"
+    - "#69a1a7"
+    - "#ffffff"
+    - "#e4c696"
+    - "#c0627a"
+  # 发散色（相关 / 正负）
+  diverging:
+    - "#515a85"
+    - "#eceff4"
+    - "#c0627a"
+  # 三维曲面色（Plotly）
+  surface3d:
+    - "#2f648e"
+    - "#e9d1ab"
+    - "#c3476a"
+  surface_bg: "#f2e2e4"
+
+font:
+  family:
+    - "Microsoft YaHei"
+    - "Noto Sans CJK SC"
+    - "Source Han Sans SC"
+    - "sans-serif"
+  weight: "bold"
+  # 全局字号：轴标签 / 刻度的字号留空时跟随它（见 desktop 的「字体」分区）
+  size: 10
+
+figure:
+  size: [8, 5]
+  dpi: 150
+
+line:
+  width: 2.0
+
+marker:
+  size: 100.0
+
+grid:
+  width: 0.5
+
+# 主题覆盖层：在基础令牌之上覆盖部分字段
+themes:
+  rose:
+    color:
+      axes: "#fefaf9"
+      text: "#bf7b7b"
+      label: "#bf7b7b"
+  slate:
+    color:
+      axes: "#f1f5f9"
+      text: "#515a85"
+      label: "#515a85"

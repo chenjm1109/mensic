@@ -1,0 +1,40 @@
+id: line-basic
+version: 3
+status: published
+title: 标准折线图
+category: line
+tags: [折线图, 基础, 趋势, 区间高亮]
+summary: 用单条折线展示连续年份上的趋势，并高亮阶段性区间与关键节点。
+difficulty: beginner
+default_library: matplotlib
+order: 10
+theme: slate
+data:
+  source: data/gdp.csv
+  schema:
+    columns:
+      - { name: 年份, role: x, type: quantitative, required: true }
+      - { name: 阿尔及利亚, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 标准折线图, loc: left }
+  xlabel: 年份
+  ylabel: GDP（亿美元）
+  limits:
+    x: [1960, 2025]
+    y: [0, 2640]
+  ticks:
+    x_major: 10
+    x_minor: 1
+    y_major: 500
+  legend: { loc: upper left, ncols: 2 }
+params:
+  - { key: line_width, type: number, default: 3, min: 1, max: 6 }
+  - { key: marker_size, type: number, default: 6, min: 2, max: 16 }
+elements:
+  - { key: line, label: 折线, group_by: none, size: line_width }
+  - { key: marker, label: 节点, group_by: none, size: marker_size }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

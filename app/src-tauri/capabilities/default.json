@@ -1,0 +1,31 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "mensic 主窗口能力：自定义标题栏 + 项目存储（应用数据目录读写）",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-minimize",
+    "core:window:allow-maximize",
+    "core:window:allow-unmaximize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+    "core:window:allow-is-maximized",
+    "core:window:allow-start-dragging",
+    "core:window:allow-show",
+    "core:window:allow-set-focus",
+    "core:app:allow-exit",
+    "fs:default",
+    "fs:write-all",
+    "dialog:default",
+    "clipboard-manager:allow-read-text",
+    "clipboard-manager:allow-write-text",
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        { "path": "$APPDATA/mensic" },
+        { "path": "$APPDATA/mensic/**" }
+      ]
+    }
+  ]
+}

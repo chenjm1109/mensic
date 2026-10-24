@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="甜甜圈">
+  <defs>
+    <clipPath id="sq12"><rect width="512" height="512" rx="114"/></clipPath>
+    <!-- 两条等宽切缝：沿 0° / 60° 的射线开固定宽度的槽（不是按角度切，否则外宽内窄） -->
+    <mask id="gap12" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+      <rect width="512" height="512" fill="#fff"/>
+      <g stroke="#000" stroke-width="16" stroke-linecap="butt">
+        <line x1="316" y1="256" x2="426" y2="256"/>
+        <line x1="286" y1="308" x2="341" y2="403"/>
+      </g>
+    </mask>
+  </defs>
+  <g clip-path="url(#sq12)">
+    <rect width="512" height="512" fill="#FDFBF7"/>
+
+    <!-- 几何中心 = 画布中心 (256,256)，外径 150 / 内径 78；整体再放大 8% 到画布的 ~63% -->
+    <g transform="translate(256 256) scale(1.08) translate(-256 -256)">
+      <g mask="url(#gap12)">
+        <!-- 一整圈圆环 -->
+        <circle cx="256" cy="256" r="114" fill="none" stroke="#E05F79" stroke-width="72"/>
+        <!-- 被选中的一块：0° → 60°，浅一档 -->
+        <path d="M406 256 A150 150 0 0 1 331 385.9 L295 323.5 A78 78 0 0 0 334 256 Z" fill="#F3AEB9"/>
+      </g>
+    </g>
+  </g>
+</svg>

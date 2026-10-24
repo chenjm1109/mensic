@@ -1,0 +1,38 @@
+id: area-ridgeline
+version: 2
+status: published
+title: 分层面积图
+category: area
+tags: [面积图, 分层, 山脊, 分布]
+summary: 多条曲线各自填充并沿纵轴逐层抬升，形成错落的山脊式分层。
+difficulty: intermediate
+default_library: matplotlib
+order: 30
+theme: rose
+data:
+  source: data/ridgeline.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: 类别, role: series, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 分层面积图, loc: left }
+  xlabel: X轴
+  ylabel: 数值
+  limits:
+    x: [0, 70]
+    y: [0, 8]
+  ticks:
+    x_major: 10
+    x_minor: 2
+  legend: { loc: upper center, ncols: 4 }
+params:
+  - { key: offset, type: number, default: 0.8, min: 0.2, max: 2 }
+  - { key: alpha, type: number, default: 0.8, min: 0.3, max: 1 }
+elements:
+  - { key: ridge, label: 山脊, group_by: series, opacity: alpha }
+implementations:
+  - { library: matplotlib }

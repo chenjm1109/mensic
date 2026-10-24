@@ -1,0 +1,33 @@
+id: heatmap-table
+version: 2
+status: published
+title: 表格型热力图
+category: heatmap
+tags: [热力图, 表格, 数值标注]
+summary: 用网格热力色块表示二维矩阵，并在每个单元格内标注数值。
+difficulty: advanced
+default_library: matplotlib
+order: 20
+theme: rose
+data:
+  source: data/table_grid.csv
+  schema:
+    columns:
+      - { name: 列, role: x, type: ordinal, required: true }
+      - { name: 行, role: y, type: ordinal, required: true }
+      - { name: 数值, role: color, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 表格型热力图, loc: left }
+  xlabel: X轴
+  ylabel: Y轴
+params:
+  - { key: show_values, type: bool, default: true }
+  - { key: cell_alpha, type: number, default: 1, min: 0, max: 1 }
+elements:
+  - { key: cell, label: 色块, group_by: none, opacity: cell_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

@@ -1,0 +1,41 @@
+id: line-log
+version: 2
+status: published
+title: 对数坐标折线图
+category: line
+tags: [折线图, 对数坐标, 多序列, 量级]
+summary: 用对数纵坐标展示数量级差异较大的多序列走势，压平指数式增长。
+difficulty: advanced
+default_library: matplotlib
+order: 40
+theme: slate
+data:
+  source: data/gdp.csv
+  schema:
+    columns:
+      - { name: 年份, role: x, type: quantitative, required: true }
+      - { name: 博茨瓦纳, role: series, type: quantitative, optional: true }
+      - { name: 布基纳法索, role: series, type: quantitative, optional: true }
+      - { name: 布隆迪, role: series, type: quantitative, optional: true }
+      - { name: 喀麦隆, role: series, type: quantitative, optional: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 对数坐标折线图, loc: left }
+  xlabel: 年份
+  ylabel: GDP（亿美元，对数）
+  limits:
+    x: [1960, 2025]
+  ticks:
+    x_major: 10
+    x_minor: 1
+  legend: { loc: upper left, ncols: 2 }
+params:
+  - { key: line_width, type: number, default: 3, min: 1, max: 6 }
+  - { key: marker_size, type: number, default: 5, min: 2, max: 16 }
+elements:
+  - { key: line, label: 折线, group_by: column, size: line_width }
+  - { key: marker, label: 节点, group_by: column, size: marker_size }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

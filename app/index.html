@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 整页缩放一律禁止：手机上双指只能作用在**自己有缩放手势**的区域
+         （数据表格 useTableZoom / 图表预览 ZoomPane），其余界面被整体放大后控件会跑出屏幕。
+         user-scalable=no + maximum-scale=1 管浏览器；styles.css 的 touch-action 管
+         WebView / Chromium 合成器那一层（两道都要，原因见那里的注释）。
+         viewport-fit=cover：安卓沉浸式全屏（隐藏状态栏）时贴到屏幕边缘。
+         interactive-widget=resizes-content：键盘弹出时按「可用高度」重排布局视口
+         （安卓原生侧另用 IME insets 压矮 WebView；两者作用相同、不会叠加）。 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <title>涵数</title>
+    <link rel="icon" type="image/svg+xml" href="/src/assets/mensic-mark.svg" />
+    <!-- 字体是 woff2（3.5MB）：先预取，别等 CSS 解析完、排版发现用到了才开始下载 -->
+    <link rel="preload" href="/fonts/ZhuoKai.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      // 改名（vizart → mensic）后的一次性搬运：旧键还在、新键没有 → 复制过来。
+      // 必须在下面读 mensic.settings.v1 之前跑，否则老用户会觉得「主题/语言被重置了」。
+      (function () {
+        try {
+          [
+            ["vizart.settings.v1", "mensic.settings.v1"],
+            ["vizart.table-zoom.v1", "mensic.table-zoom.v1"],
+          ].forEach(function (pair) {
+            var v = localStorage.getItem(pair[0]);
+            if (v !== null && localStorage.getItem(pair[1]) === null) localStorage.setItem(pair[1], v);
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <script>
+      // 首屏防闪烁：在 React 挂载前先把「亮/暗模式」写到 <html>，避免深色用户看到一帧白底。
+      // 主题色（--brand*）由 core/brand.ts 在挂载时统一推导，这里不重复推导以免两处逻辑分叉。
+      (function () {
+        try {
+          var s = JSON.parse(localStorage.getItem("mensic.settings.v1") || "{}");
+          var dark = s.mode === "dark";
+          if (dark) document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      /* ------------------------------------------------------------------
+         首屏骨架：**不依赖 JS、不依赖外部 CSS**，写在 head 里立刻生效。
+         作用：让「JS 下载 / 解析」这段时间不再是白屏（桌面端窗口此时还没 show，
+         网页端与开发环境则直接看到这块底色 + 自转的品牌标识）。
+         颜色与 styles.css 的语义 token 保持一致（这里用不了变量，只好复制两份）。
+         ------------------------------------------------------------------ */
+      html {
+        background: #f0ece4; /* ≈ surface-3，暖纸底色 */
+      }
+      html.dark {
+        background: #171614;
+      }
+      .boot-splash {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 240ms cubic-bezier(0.4, 0, 0.2, 1);
+        /* ⚠️ 必须**不透明**：React 一挂载首页就画在下面了，这块要是没有底色，
+           用户就会隔着转圈的 logo 看到「字标先按系统字体画一遍、卡片再一张张长出来」。
+           颜色 = styles.css 的 --background（这里用不了变量，只好复制一份）。 */
+        background: #ffffff;
+      }
+      html.dark .boot-splash {
+        background: #1a1917;
+      }
+      /* 首屏「可交付」之后自己淡出：`data-app-ready` 由 main.tsx 在**字体 / 首屏图就位**后打上
+         （不是首帧就打 —— 否则能看到字体替换、卡片入场）。不用 JS 移除节点，避免多一次重排。 */
+      html[data-app-ready] .boot-splash {
+        opacity: 0;
+      }
+      /* 加载指示：品牌标识（甜甜圈）缓慢自转。
+         刻意**不放文字** —— 启动是一瞬间的事，写字反而像状态提示或报错。
+         全部内联（SVG + CSS），不依赖 styles.css：连「资源都没加载出来」时它照样转。
+         几何与 src/assets/mensic-mark.svg 完全一致，改图标时两处一起改。 */
+      .boot-mark {
+        display: block;
+        width: 46px;
+        height: 46px;
+        animation: boot-spin 1.6s linear infinite;
+      }
+      @keyframes boot-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      /* 卡住时（见下面的 watchdog）：停转并变淡，整屏可点重试。
+         仍然不出现文字 —— 重试提示只在悬停的 title 里。 */
+      html[data-app-stuck]:not([data-app-ready]) .boot-splash {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      html[data-app-stuck]:not([data-app-ready]) .boot-mark {
+        animation: none;
+        opacity: 0.45;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="portal"></div>
+    <!-- 首屏骨架（React 一挂载就淡出）：只有自转的品牌标识，没有文字 -->
+    <div class="boot-splash" aria-hidden="true">
+      <svg class="boot-mark" viewBox="96 96 320 320" aria-hidden="true">
+        <defs>
+          <mask id="boot-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+            <rect width="512" height="512" fill="#fff" />
+            <g stroke="#000" stroke-width="16" stroke-linecap="butt">
+              <line x1="316" y1="256" x2="426" y2="256" />
+              <line x1="286" y1="308" x2="341" y2="403" />
+            </g>
+          </mask>
+        </defs>
+        <g mask="url(#boot-gap)">
+          <circle cx="256" cy="256" r="114" fill="none" stroke="#e05f79" stroke-width="72" />
+          <path
+            d="M406 256 A150 150 0 0 1 331 385.9 L295 323.5 A78 78 0 0 0 334 256 Z"
+            fill="#f3aeb9"
+          />
+        </g>
+      </svg>
+    </div>
+    <script>
+      /**
+       * 启动看门狗：8 秒还没打上 `data-app-painted`，就让加载动画停住并允许点击重试。
+       *
+       * 为什么写在 HTML 里、而不是 React 里：最常见的「一直卡在启动界面」是
+       * **前端资源根本没加载** —— 桌面 dev 版的界面走 Vite（tauri.conf 的 devUrl =
+       * http://localhost:1420）：Vite 没起 / 端口被上一次的进程占着时，index.html 还能
+       * 从 WebView2 的缓存里出来（于是看得到骨架），但 `/src/main.tsx` fetch 失败，
+       * React 一行都没跑 → 骨架永远不撤，控制台之外没有任何提示。
+       * 这段是内联在 HTML 里的脚本，不依赖任何打包产物，上面那条链路断了它照样跑。
+       *
+       * ⚠️ 骨架里**不写任何文字**（按产品要求：启动页只有动画）：卡住时只把动画定格，
+       *    重试提示放在悬停的 `title` 上，不占界面。
+       */
+      (function () {
+        var splash = document.querySelector(".boot-splash");
+        if (!splash) return;
+        setTimeout(function () {
+          var html = document.documentElement;
+          if (html.hasAttribute("data-app-ready")) return;
+          var root = document.getElementById("root");
+          if (root && root.childElementCount > 0) {
+            // 界面已经挂上了，只是「首屏就绪」还没等到（字体 / 图片卡住，或窗口被遮挡时 rAF 不跑）。
+            // 这时候不能报「卡住」，但也不能让骨架永远挂着 —— 直接放行。
+            html.setAttribute("data-app-ready", "1");
+            return;
+          }
+          // 兜底到这里说明前端资源根本没加载：定格动画 + 可点重试
+          html.setAttribute("data-app-stuck", "1");
+          splash.removeAttribute("aria-hidden");
+          splash.title = "点击重试";
+        }, 8000);
+        splash.addEventListener("click", function () {
+          if (document.documentElement.hasAttribute("data-app-stuck")) location.reload();
+        });
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="热力方块">
+  <defs>
+    <clipPath id="sq14"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq14)">
+    <rect width="512" height="512" fill="#FDFBF7"/>
+
+    <!-- 4×4 的方格，明度就是数值；中间偏右一格最亮（被你选中的那个值） -->
+    <g fill="#E05F79">
+      <rect x="110" y="110" width="64" height="64" rx="14" opacity="0.10"/>
+      <rect x="186" y="110" width="64" height="64" rx="14" opacity="0.18"/>
+      <rect x="262" y="110" width="64" height="64" rx="14" opacity="0.30"/>
+      <rect x="338" y="110" width="64" height="64" rx="14" opacity="0.42"/>
+
+      <rect x="110" y="186" width="64" height="64" rx="14" opacity="0.18"/>
+      <rect x="186" y="186" width="64" height="64" rx="14" opacity="0.36"/>
+      <rect x="262" y="186" width="64" height="64" rx="14" opacity="0.60"/>
+      <rect x="338" y="186" width="64" height="64" rx="14" opacity="0.80"/>
+
+      <rect x="110" y="262" width="64" height="64" rx="14" opacity="0.30"/>
+      <rect x="186" y="262" width="64" height="64" rx="14" opacity="0.56"/>
+      <rect x="262" y="262" width="68" height="68" rx="15" opacity="1" transform="translate(-2 -2)"/>
+      <rect x="338" y="262" width="64" height="64" rx="14" opacity="0.66"/>
+
+      <rect x="110" y="338" width="64" height="64" rx="14" opacity="0.14"/>
+      <rect x="186" y="338" width="64" height="64" rx="14" opacity="0.28"/>
+      <rect x="262" y="338" width="64" height="64" rx="14" opacity="0.48"/>
+      <rect x="338" y="338" width="64" height="64" rx="14" opacity="0.34"/>
+    </g>
+  </g>
+</svg>

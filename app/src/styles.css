@@ -1,0 +1,613 @@
+@import "tailwindcss";
+
+/* ============================================================
+   mensic · Typora 式极简主题
+   中性灰白、细边框、无阴影、纯净留白
+   ============================================================ */
+
+/* 中文主字体：江西拙楷体 */
+@font-face {
+  font-family: "ZhuoKai";
+  src: url("/fonts/ZhuoKai.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.75rem;
+
+  --background: #ffffff;
+  --foreground: #1f2328;
+
+  --card: #ffffff;
+  --card-foreground: #1f2328;
+
+  --popover: #ffffff;
+  --popover-foreground: #1f2328;
+
+  --primary: #c0627a;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f6f6f5;
+  --secondary-foreground: #22262b;
+
+  --muted: #f6f6f5;
+  --muted-foreground: #7a8087;
+
+  --accent: rgba(28, 28, 28, 0.05);
+  --accent-strong: rgba(28, 28, 28, 0.1);
+  --accent-foreground: #22262b;
+
+  --destructive: #d14343;
+  --destructive-foreground: #fafafa;
+
+  --border: #e9e9e7;
+  --input: #e9e9e7;
+  --ring: rgba(224, 95, 121, 0.45);
+
+  /* ---------- 主题色（强调色）----------
+     默认是应用原生的玫红；用户可在「设置 → 主题色」里换。
+     运行时会由 core/brand.ts 覆盖这几个变量（含 --primary / --ring），
+     这里只是首屏渲染前的默认值。 */
+  --brand: #e05f79;
+  --brand-strong: #c2546a;
+  --brand-deep: #8e3448;
+  --brand-soft: #fbeef0;
+  --brand-line: #dfa0ac;
+
+  /* ---------- 应用自有语义色板 ----------
+     新界面**一律用这些语义变量**（而不是写死 #hex），这样亮/暗模式自动生效：
+       surface*  底色（surface 卡片/页面、surface-2 次级底、surface-3 悬停底）
+       ink*      文字（ink 标题、ink-2 正文、ink-3 次要、ink-4 占位）
+       line*     边框与分隔线
+     运行时会由 core/brand.ts 按当前亮暗模式再校准主题色阶。 */
+  --surface: #ffffff;
+  --surface-2: #f7f7f7;
+  --surface-3: #efefef;
+  --ink: #23262b;
+  --ink-2: #4a443b;
+  --ink-3: #8b8375;
+  --ink-4: #a99d8a;
+  --line: #e9e4da;
+  --line-2: #efece5;
+}
+
+/* ---------- 黑暗模式 ---------- */
+.dark {
+  color-scheme: dark;
+
+  --background: #1a1917;
+  --foreground: #ece8e1;
+  --card: #201f1c;
+  --card-foreground: #ece8e1;
+  --popover: #232220;
+  --popover-foreground: #ece8e1;
+
+  --secondary: #2a2825;
+  --secondary-foreground: #ece8e1;
+  --muted: #2a2825;
+  --muted-foreground: #a49b8d;
+
+  --accent: rgba(255, 255, 255, 0.06);
+  --accent-strong: rgba(255, 255, 255, 0.12);
+  --accent-foreground: #ece8e1;
+
+  --destructive: #d05252;
+  --destructive-foreground: #fafafa;
+
+  --border: #34322e;
+  --input: #34322e;
+
+  /* 深色下主题色默认值（运行时会被 brand.ts 覆盖） */
+  --brand: #e05f79;
+  --brand-strong: #f08fa2;
+  --brand-deep: #f6bcc7;
+  --brand-soft: #3a2529;
+  --brand-line: #7d3f4a;
+
+  --surface: #1a1917;
+  --surface-2: #232220;
+  --surface-3: #2e2c29;
+  --ink: #f2efe9;
+  --ink-2: #ddd7cc;
+  --ink-3: #a49b8d;
+  --ink-4: #7d7568;
+  --line: #34322e;
+  --line-2: #2a2825;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* 主题色 → 工具类：bg-brand-soft（选项高亮）、text-brand-strong、border-brand-line … */
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-line: var(--brand-line);
+
+  /* 应用语义色板 → Tailwind 工具类：bg-surface / text-ink-2 / border-line … */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+
+  --font-sans: "ZhuoKai", "SF Pro Text", "SF Pro Display", "Segoe UI Variable Text", "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", Consolas, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  /**
+   * 禁止「双指 = 整页缩放」与「双击 = 缩放」。
+   *
+   * 缩放手势**只允许存在于自己有实现的区域**（数据表格 useTableZoom、图表预览 ZoomPane）：
+   * 别的地方被整体放大之后，参数栏 / 顶栏会跑出屏幕，控件也点不准，是移动端最难受的一类 bug。
+   *
+   * 两条防线缺一不可：
+   *  - index.html 的 viewport（user-scalable=no）管浏览器；
+   *  - 这里管**合成器**：Android WebView 的 viewport meta 只在 `setUseWideViewPort(true)`
+   *    时才完全生效，而 wry 没设它 —— 只有 touch-action 是引擎层面一定会执行的。
+   * 两者都只关掉**原生**那套手势，页面里 JS 自己实现的捏合照常收到 touch 事件（单指平移也不受影响）。
+   */
+  html,
+  body {
+    touch-action: pan-x pan-y;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  input,
+  textarea,
+  [contenteditable="true"] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  img {
+    -webkit-user-drag: none;
+  }
+  ::selection {
+    background: var(--brand-soft);
+    color: var(--brand-deep);
+    -webkit-text-fill-color: var(--brand-deep);
+  }
+}
+
+/* Plotly 容器自适应 */
+.plot-host .js-plotly-plot,
+.plot-host .plot-container,
+.plot-host .svg-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 自定义细滚动条（Typora 风格） */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #dcdcda transparent;
+}
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #dcdcda;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #c8c8c5;
+  background-clip: content-box;
+}
+/* 深色下的滚动条 */
+.dark * {
+  scrollbar-color: #3a3833 transparent;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: #3a3833;
+  background-clip: content-box;
+}
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: #4d4a43;
+  background-clip: content-box;
+}
+
+/* 隐藏滚动条（用于可横向拖动的标签行） */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 表格单元格输入框聚焦不显示边框，靠底色区分（极简） */
+.cell-input {
+  @apply w-full bg-transparent px-2.5 py-1.5 text-[13px] outline-none;
+}
+.cell-input:focus {
+  @apply bg-accent;
+}
+
+/* ============================================================
+   Glide Data Grid 单元格编辑器：让「正在编辑」清晰可见
+   编辑框填充整个单元格，用加粗描边 + 深色文字/光标
+   ============================================================ */
+#portal .gdg-style {
+  z-index: 1000 !important;
+  border-radius: 2px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 2px #22262b !important;
+}
+/* 单元格编辑器：glide 把它**传送**到 `#portal`（`#root` 的兄弟），
+   所以 glide 那套主题变量（挂在网格容器上）到不了这里 —— 只能由 DataTable
+   把字号写到根元素上（`--gdg-editor-font-size`，名字沿用 glide 的）再读回来。
+   ⚠️ 这里**不能**写死字号：表格缩放时编辑器里的字必须跟着变大（曾经写死 13px，缩放后编辑器里还是小字）。 */
+#portal .gdg-style.gdg-pad {
+  padding: 0 calc(var(--gdg-editor-font-size, 13px) * 0.6) !important;
+}
+#portal .gdg-clip-region {
+  justify-content: center;
+}
+#portal .gdg-input {
+  color: #1f2328 !important;
+  caret-color: #22262b !important;
+  font-size: var(--gdg-editor-font-size, 13px) !important;
+}
+/* Text / GrowingEntry 的行高在 glide 里写死成 16px。表格放大后字号会跟着放大，
+   但行高不变，字形上下会被 textarea 的 overflow:hidden 裁掉，只剩中间一条。
+   行高与 ShadowBox 必须一起按字号缩放，否则测量高度也会偏小。 */
+#portal .gdg-growing-entry textarea.gdg-input,
+#portal .gdg-growing-entry > div {
+  line-height: calc(var(--gdg-editor-font-size, 13px) * 1.25) !important;
+}
+/* 编辑器里的文字选区也用主题浅色；textarea 自带 -webkit-text-fill-color，
+   只写 color 在 WebView 里不一定能盖住它。 */
+#portal .gdg-input::selection {
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  -webkit-text-fill-color: var(--brand-deep);
+}
+/* 深色下的单元格编辑器 */
+.dark #portal .gdg-style {
+  background-color: #232220 !important;
+  box-shadow: 0 0 0 2px var(--brand) !important;
+}
+.dark #portal .gdg-input {
+  color: #ece8e1 !important;
+  caret-color: #ece8e1 !important;
+}
+
+/* ============================================================
+   首页背景动效：柱体轻浮动 + 光晕呼吸
+   ============================================================ */
+/* ============================================================
+   工具条 / Tab / 图标按钮的悬停底
+   与「选中态的手绘墨迹」同一支笔：同色系、但更浅、无排线且不带位移，
+   所以既与选中态协调，又能一眼区分「悬停」和「已选中」。
+   （原来用的是中性黄褐底，和手绘墨迹不搭，显得脏。）
+   ============================================================ */
+.hover-sketch {
+  transition: background-color 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* ⚠️ 悬停必须包在 `@media (hover: hover)` 里：手指按下同样会命中 `:hover`，
+   而且一直挂到下一次点别处 —— 分区标题、Tab 点完就留一块像「选中」的底色。 */
+@media (hover: hover) {
+  .hover-sketch:hover {
+    background-color: color-mix(in srgb, var(--brand) 13%, transparent);
+  }
+  /* 鼠标 / 键盘的按压反馈：浏览器自己的 :active 是准的，直接用 */
+  .hover-sketch:active {
+    background-color: color-mix(in srgb, var(--brand) 20%, transparent);
+  }
+}
+/* 混合设备（触屏笔记本）的 `hover: hover` 仍然为真，靠 core/touch-mode.ts 打的
+   `data-touch` 兜底：手指碰过之后悬停底色一律不画，鼠标一动立刻恢复。 */
+html[data-touch] .hover-sketch:hover {
+  background-color: transparent;
+}
+/* ⚠️ 触摸**长按**之后浏览器会把 `:active` 也卡住（松手了还亮着）—— 20% 粉底留在没选中的
+   Tab 上，看起来就跟「选中」一样。所以触摸的按压反馈不走 `:active`，走 touch-mode.ts
+   自己记的 `data-pressed`：松手 / 滑动取消立刻收干净。 */
+html[data-touch] .hover-sketch:active:not([data-pressed]) {
+  background-color: transparent;
+}
+/* 手指按住的这一下（由 touch-mode.ts 记的；松手 / 取消立刻摘掉）。
+   ⚠️ 与上面那条悬停兜底特异性相同，靠**顺序**取胜：必须排在它后面。 */
+html[data-touch] .hover-sketch[data-pressed] {
+  background-color: color-mix(in srgb, var(--brand) 20%, transparent);
+}
+
+/* ============================================================
+   自定义光标（components/Cursor.tsx）
+   开启时把系统光标全部藏掉（!important：组件里写的 cursor: grab 之类也一并盖住），
+   只保留两处例外 —— 文本编辑的 I 形光标，以及显式声明 [data-cursor-native] 的区域。
+   ============================================================ */
+html.cursor-none,
+html.cursor-none * {
+  cursor: none !important;
+}
+/* 文本编辑保留 I 形光标 */
+html.cursor-none input,
+html.cursor-none textarea,
+html.cursor-none [contenteditable=""],
+html.cursor-none [contenteditable="true"] {
+  cursor: text !important;
+}
+/* 极少数确实需要系统光标的地方（如自绘光标的外部组件） */
+html.cursor-none [data-cursor-native],
+html.cursor-none [data-cursor-native] * {
+  cursor: auto !important;
+}
+
+/* ============================================================
+   预览「渲染中」反馈：模糊 + 呼吸（代替「渲染中…」文字）
+
+   两层**静态**模糊叠在一起，只让上面那层的透明度呼吸：
+   - .preview-blur-soft   5px（静态，常驻下层）
+   - .preview-blur-strong 13px（静态，透明度在 2.6s 里来回）
+   新图就位后由 React 把清晰那张淡入（0.5s），底下的模糊层随后卸载。
+
+   ⚠️ 不要退回「逐帧动画 filter: blur()」：安卓 WebView 每帧都要重栅格化整张大图。
+   ============================================================ */
+.preview-blur-soft {
+  filter: blur(5px);
+}
+.preview-blur-strong {
+  filter: blur(13px);
+}
+@keyframes preview-breathe-fade {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.preview-breathe {
+  animation: preview-breathe-fade 2.6s ease-in-out infinite;
+}
+
+/* ============================================================
+   文件夹「退出」第一步：纸在**内容区**上淡入（不是整屏白幕）
+   ⚠️ 必须走 CSS 动画（合成器），不能用 Motion 的 JS 动画 —— 这 0.17s 正是主线程
+   在挂载上一级列表、最卡的时候，JS 动画会被饿死 → 纸层迟迟不透明 → 上一级抢先露出来。
+   ⚠️ 时长必须**明显短于** Projects.tsx 里切目录的定时器（MORPH_OUT_COVER_MS），见那边的说明。
+   ============================================================ */
+@keyframes folder-sheet-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.folder-sheet-in {
+  /* ⚠️ `will-change: opacity` 不是可选项：它把这张纸提升为**独立合成层**，
+     淡入才真正跑在合成器上。否则它和 JS 动画一样会被主线程的挂载卡顿饿死
+     （实测：不提升时整纸 800ms 还停在 opacity 0，上一级早就露出来了）。 */
+  will-change: opacity;
+  animation: folder-sheet-in 0.17s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes hx-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+.hx-float-a {
+  animation: hx-float 13s ease-in-out infinite;
+}
+.hx-float-b {
+  animation: hx-float 9s ease-in-out infinite;
+}
+@keyframes hx-breathe {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.045);
+    opacity: 1;
+  }
+}
+.hx-breathe {
+  animation: hx-breathe 11s ease-in-out infinite;
+}
+
+/* 标题轻浮动 */
+@keyframes hx-levitate {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.hx-levitate {
+  animation: hx-levitate 7s ease-in-out infinite;
+}
+
+/* 标题光晕呼吸 */
+@keyframes hx-glow {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+.hx-glow {
+  transform: translate(-50%, -50%);
+  animation: hx-glow 9s ease-in-out infinite;
+}
+
+/* 弧线两端圆点脉动 */
+@keyframes hx-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+.hx-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hx-dot 3.6s ease-in-out infinite;
+}
+.hx-dot-b {
+  animation-delay: -1.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-float-a,
+  .hx-float-b,
+  .hx-breathe,
+  .hx-levitate,
+  .hx-glow,
+  .hx-dot {
+    animation: none !important;
+  }
+}
+
+/* 页面懒加载时的占位点（与 index.html 首屏骨架的呼吸点同款观感） */
+.page-skeleton-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ink-4);
+  animation: boot-breathe 1.4s ease-in-out infinite;
+}
+
+/* ============================================================
+   颜色选择面板（react-colorful）：只调尺寸 / 圆角 / 指针大小，
+   让它与全站一致（发丝边、8px 圆角、指针小一点）。
+   ⚠️ 库会在运行时注入同名样式，所以这里带 `.color-popover` 前缀压过它。
+   ============================================================ */
+.color-popover .react-colorful {
+  width: 100%;
+  height: 164px;
+}
+.color-popover .react-colorful__saturation {
+  border-radius: 8px 8px 0 0;
+  border-bottom-width: 10px;
+}
+.color-popover .react-colorful__hue {
+  flex: 0 0 14px;
+  height: 14px;
+  border-radius: 0 0 8px 8px;
+}
+.color-popover .react-colorful__pointer {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.color-popover .react-colorful__saturation-pointer {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================================
+   材质：扁平淡雅 + 极轻悬浮层
+   - .card  ：内容卡片（发丝边、无阴影）
+   - .chrome：悬浮层（标题栏/工具条/弹层；轻模糊 + 细描边 + 极轻投影）
+   ============================================================ */
+.card {
+  background-color: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(28, 28, 28, 0.07);
+  box-shadow: none;
+}
+.dark .card {
+  background-color: rgba(35, 34, 32, 0.72);
+  border-color: rgba(255, 255, 255, 0.09);
+}
+.chrome {
+  background-color: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(28, 28, 28, 0.07);
+  box-shadow: 0 1px 2px rgba(28, 28, 28, 0.03);
+}
+.dark .chrome {
+  background-color: rgba(32, 31, 28, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+/* 抽屉展开/收起的那 340ms：毛玻璃会每帧重算背景模糊（安卓上很贵）。
+   过渡期间换成同色的实底 —— 视觉上几乎看不出来，动画结束后恢复毛玻璃。 */
+.chrome.chrome-solid {
+  background-color: var(--surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.chrome-bar {
+  background-color: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: none;
+}
+.dark .chrome-bar {
+  background-color: rgba(26, 25, 23, 0.72);
+}

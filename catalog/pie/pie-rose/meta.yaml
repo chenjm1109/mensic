@@ -1,0 +1,35 @@
+id: pie-rose
+version: 2
+status: published
+title: 南丁格尔玫瑰图
+category: pie
+tags: [饼图, 玫瑰图, 极坐标, 极区图]
+summary: 以极坐标扇形条呈现数据，扇形角度与半径同时编码数值，形成放射状花瓣。
+difficulty: intermediate
+default_library: matplotlib
+order: 50
+theme: rose
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+capabilities: { axes: none }   # 饼图没有直角坐标轴：轴名 / 轴范围 / 刻度 / 网格线这些配置项不显示
+
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 南丁格尔玫瑰图, loc: center }
+  limits: { y: [0, 85] }
+  legend: false
+params:
+  - { key: inner_radius, type: number, default: 10, min: 0, max: 40 }
+  - { key: show_labels, type: bool, default: true }
+  - { key: wedge_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：每片花瓣一块，按「类别」取值分组。
+elements:
+  - { key: wedge, label: 扇区, group_by: category, group_role: x, opacity: wedge_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

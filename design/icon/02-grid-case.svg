@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="案例格里被点亮的那一格">
+  <defs>
+    <clipPath id="sq2"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq2)">
+    <rect width="512" height="512" fill="#FEFAF9"/>
+
+    <g transform="translate(256 256) scale(1.29) translate(-256 -262)">
+
+    <!-- 方格纸：三列四横，顶边故意不封口（不画外框，避免读成计算器 / 日历） -->
+    <g stroke="#B9C7DD" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M128 142 L128 384"/>
+      <path d="M213 146 L213 384"/>
+      <path d="M299 140 L299 384"/>
+      <path d="M384 152 L384 384"/>
+      <path d="M131 213 L385 209"/>
+      <path d="M130 299 L383 297"/>
+      <path d="M132 384 L381 381"/>
+    </g>
+
+    <!-- 被选中的那一格：手绘色块，边缘故意盖住格线 -->
+    <path d="M212 212 L301 208 L302 296 L213 300 Z" fill="#E05F79"/>
+
+    <!-- 第二个候选：小点，暗示「一整个库」 -->
+    <circle cx="171" cy="170" r="14" fill="#E05F79" opacity="0.7"/>
+    </g>
+  </g>
+</svg>

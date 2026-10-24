@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="三张纸卡">
+  <defs>
+    <clipPath id="sq6"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq6)">
+    <rect width="512" height="512" fill="#F3EDE2"/>
+
+    <!-- 一叠纸卡（首页那三张），最上面一张是「你的项目」 -->
+    <g stroke="#D9CDBA" stroke-width="4">
+      <rect x="176" y="108" width="216" height="256" rx="22" fill="#EDE4D3"/>
+      <rect x="158" y="126" width="216" height="256" rx="22" fill="#F8F2E7"/>
+      <rect x="140" y="144" width="216" height="256" rx="22" fill="#FFFFFF"/>
+    </g>
+
+    <!-- 卡面：标题两条 + 折线 -->
+    <rect x="172" y="188" width="96" height="12" rx="6" fill="#E3D8C6"/>
+    <rect x="172" y="214" width="58" height="10" rx="5" fill="#EDE4D5"/>
+    <path d="M172 324 L206 300 L240 314 L274 266 L306 254" stroke="#E05F79" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="306" cy="254" r="14" fill="#E05F79"/>
+  </g>
+</svg>

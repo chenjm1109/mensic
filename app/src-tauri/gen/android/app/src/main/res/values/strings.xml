@@ -1,0 +1,5 @@
+<resources>
+    <!-- 启动器里的应用名：与 App 内部一致（中文「涵数」/ 英文 mensic，见 core/i18n） -->
+    <string name="app_name">"涵数"</string>
+    <string name="main_activity_title">"涵数"</string>
+</resources>

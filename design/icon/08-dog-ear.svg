@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="折角的纸">
+  <defs>
+    <clipPath id="sq8"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq8)">
+    <rect width="512" height="512" fill="#EFE7DA"/>
+
+    <!-- 一张纸，右下角被折起（缺角 + 折回的三角） -->
+    <path d="M120 82 H392 Q416 82 416 106 V300 L300 416 H120 Q96 416 96 392 V106 Q96 82 120 82 Z"
+          fill="#FFFDF9" stroke="#E3D9C8" stroke-width="3"/>
+
+    <!-- 纸上的图 -->
+    <path d="M148 296 L184 256 L216 278 L250 228 L282 246 L314 196"
+          fill="none" stroke="#E05F79" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M148 322 H318" stroke="#515A85" stroke-width="6" opacity="0.4" stroke-linecap="round"/>
+
+    <!-- 折角：折回来的一面用玫红（像夹了个书签） -->
+    <path d="M416 300 L334 334 L300 416 Z" fill="#E05F79"/>
+    <path d="M416 300 L334 334 L300 416" fill="none" stroke="#C2546A" stroke-width="4" opacity="0.55" stroke-linejoin="round"/>
+  </g>
+</svg>

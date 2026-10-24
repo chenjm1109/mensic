@@ -1,0 +1,34 @@
+id: 3d-volume
+version: 2
+status: draft
+title: 三维体积图
+category: plotly3d
+tags: [三维, 体积, Volume]
+summary: 用 go.Volume 渲染高斯平滑后的随机体数据，按等值区间显示多层半透明壳体。
+difficulty: advanced
+default_library: plotly
+order: 60
+theme: rose
+data:
+  source: data/volume.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: y, role: y, type: quantitative, required: true }
+      - { name: z, role: size, type: quantitative, required: true }
+      - { name: value, role: value, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: 3d
+  title: { text: 三维体积图, loc: left }
+  xlabel: X
+  ylabel: Y
+params:
+  - { key: isomin, type: number, default: 0.2, min: 0, max: 1 }
+  - { key: isomax, type: number, default: 0.7, min: 0, max: 1 }
+  - { key: opacity, type: number, default: 0.1, min: 0.01, max: 0.5 }
+  - { key: surface_count, type: integer, default: 25, min: 5, max: 40 }
+elements:
+  - { key: volume, label: 体积, group_by: none, size: surface_count, opacity: opacity, color: false }
+implementations:
+  - { library: plotly }

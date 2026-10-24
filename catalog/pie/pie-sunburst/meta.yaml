@@ -1,0 +1,35 @@
+id: pie-sunburst
+version: 2
+status: published
+title: 嵌套饼图
+category: pie
+tags: [饼图, 嵌套, 极坐标, 层级]
+summary: 内外两环的层级饼图，外环把内环的某个大类继续拆成子类。
+difficulty: advanced
+default_library: matplotlib
+order: 40
+theme: rose
+data:
+  source: data/hierarchy.csv
+  schema:
+    columns:
+      - { name: 主类别, role: series, type: categorical, required: true }
+      - { name: 子类别, role: label, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+capabilities: { axes: none }   # 饼图没有直角坐标轴：轴名 / 轴范围 / 刻度 / 网格线这些配置项不显示
+
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 嵌套饼图, loc: center }
+  limits: { y: [0, 0.7] }
+  legend: false
+params:
+  - { key: ring_width, type: number, default: 0.2, min: 0.05, max: 0.4 }
+  - { key: show_labels, type: bool, default: true }
+  - { key: wedge_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：按「主类别」分组；外环继承主类别的颜色，透明度按同一比例缩放。
+elements:
+  - { key: wedge, label: 扇区, group_by: category, group_role: series, opacity: wedge_alpha }
+implementations:
+  - { library: matplotlib }

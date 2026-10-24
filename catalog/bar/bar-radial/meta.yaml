@@ -1,0 +1,32 @@
+id: bar-radial
+version: 3
+status: published
+title: 径向柱状图
+category: bar
+tags: [柱状图, 极坐标, 径向]
+summary: 沿圆周均匀分布柱子，柱长表示数值高低，适合展示周期性或方向性数据。
+difficulty: intermediate
+default_library: matplotlib
+order: 90
+theme: slate
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: ordinal, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 径向柱状图, loc: left }
+  legend: { loc: center right, ncols: 1 }
+params:
+  - { key: base, type: number, default: 10, min: 0, max: 30 }
+  - { key: bar_ratio, type: number, default: 1, min: 0.2, max: 1 }
+  - { key: bar_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：每根柱子对应一个类别；默认仍按阈值取语义色，可单独改某一根。
+elements:
+  - { key: bar, label: 柱子, group_by: none, size: bar_ratio, opacity: bar_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

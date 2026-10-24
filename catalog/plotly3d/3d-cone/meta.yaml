@@ -1,0 +1,35 @@
+id: 3d-cone
+version: 3
+status: draft
+title: 三维向量场图
+category: plotly3d
+tags: [三维, 向量场, Cone]
+summary: 用 go.Cone 把 (u, v, w) 向量场画成三维锥形箭头，展示空间中的方向与大小。
+difficulty: advanced
+default_library: plotly
+order: 80
+theme: rose
+data:
+  source: data/cone.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: y, role: y, type: quantitative, required: true }
+      - { name: z, role: size, type: quantitative, required: true }
+      - { name: u, role: value, type: quantitative, required: true }
+      - { name: v, role: value, type: quantitative, required: true }
+      - { name: w, role: value, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: 3d
+  title: { text: 三维向量场图, loc: left }
+  xlabel: X
+  ylabel: Y
+params:
+  - { key: sizeref, type: number, default: 60, min: 1, max: 200 }
+  - { key: show_scale, type: bool, default: true }
+  - { key: opacity, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: cone, label: 向量箭头, group_by: none, size: sizeref, opacity: opacity, color: false }
+implementations:
+  - { library: plotly }

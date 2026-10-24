@@ -1,0 +1,6 @@
+本目录用于放置「本端原生渲染器」的冻结产物（`mensic-render/` 可执行文件与运行时）。
+
+- 由 `npm run build:renderer` 生成；产物体积较大，不入版本库。
+- 本占位文件的作用是让 tauri.conf.json 里的资源通配符（binaries/**/*）始终能匹配到文件，
+  这样即使还没构建渲染器，`npm run tauri dev` / `tauri build` 也能正常进行
+  （此时应用会自动回退到 Pyodide 后端）。

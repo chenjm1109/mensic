@@ -1,0 +1,35 @@
+id: pie-semicircle
+version: 2
+status: published
+title: 半环饼图
+category: pie
+tags: [饼图, 半环, 极坐标]
+summary: 用极坐标扇形条拼出的半环，只占半圈，留白更多、更现代。
+difficulty: intermediate
+default_library: matplotlib
+order: 30
+theme: rose
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+capabilities: { axes: none }   # 饼图没有直角坐标轴：轴名 / 轴范围 / 刻度 / 网格线这些配置项不显示
+
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 半环饼图, loc: center }
+  limits: { y: [0, 31] }
+  legend: { loc: upper center, ncols: 5 }
+params:
+  - { key: radius, type: number, default: 20, min: 0, max: 40 }
+  - { key: thickness, type: number, default: 10, min: 1, max: 30 }
+  - { key: show_labels, type: bool, default: true }
+  - { key: wedge_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：每个扇区一块，按「类别」取值分组（含图例色块）。
+elements:
+  - { key: wedge, label: 扇区, group_by: category, group_role: x, opacity: wedge_alpha }
+implementations:
+  - { library: matplotlib }

@@ -1,0 +1,31 @@
+id: heatmap-dual
+version: 2
+status: draft
+title: 双指标热力图
+category: heatmap
+tags: [热力图, 双指标, 三角网格]
+summary: 每个网格被对角线分成两个三角，分别用不同色带表示上下两个指标。
+difficulty: advanced
+default_library: matplotlib
+order: 70
+theme: rose
+data:
+  source: data/dual_values.csv
+  schema:
+    columns:
+      - { name: 列, role: x, type: categorical, required: true }
+      - { name: 行, role: y, type: categorical, required: true }
+      - { name: 上方指标, role: color, type: quantitative, required: true }
+      - { name: 下方指标, role: color, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 双指标热力图, loc: left }
+  limits: { x: [0, 18], y: [8, 0] }
+params:
+  - { key: alpha, type: number, default: 0.75, min: 0.1, max: 1 }
+  - { key: show_labels, type: bool, default: true }
+elements:
+  - { key: cell, label: 色块, group_by: none, opacity: alpha, color: false }
+implementations:
+  - { library: matplotlib }

@@ -1,0 +1,44 @@
+# 依赖与产物
+node_modules/
+dist/
+*.local
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# TS 增量构建缓存
+vite.config.js
+vite.config.d.ts
+*.tsbuildinfo
+.check-tmp/
+
+# 运行期资源（生成 / 需离线放置，不入库）
+#   cases / gallery / design 由 `npm run sync:catalog` 生成
+#   pyodide 运行时与 fonts 字体由 `npm run setup:assets` 准备
+public/
+.catalog-manifest.json
+.gallery-lock.json
+src/gallery/cases.json
+
+# 本端原生渲染器：构建虚拟环境与冻结产物（体积大，不入库；用 npm run build:renderer 生成）
+.renderer-venv/
+build/
+src-tauri/binaries/*
+!src-tauri/binaries/PLACEHOLDER.txt
+
+# 安卓安装包（npm run apk 的产物，体积 140MB+，不入库）
+apk/
+# 发版产物汇总（npm run dist / apk 之后复制过来，方便分发；不入库）
+release/
+
+# Tauri 生成的安卓工程：**源码入库**（manifest / gradle / Kotlin / res 有我们的手改）
+# 只忽略构建输出与每台机器各自的配置，见 docs/operations/android.md
+src-tauri/gen/schemas/
+src-tauri/gen/android/.kotlin/
+src-tauri/gen/android/local.properties
+src-tauri/gen/android/app/build/
+src-tauri/gen/android/app/src/main/jniLibs/
+src-tauri/gen/android/app/src/main/assets/

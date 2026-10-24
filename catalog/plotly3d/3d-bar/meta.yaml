@@ -1,0 +1,32 @@
+id: 3d-bar
+version: 2
+status: draft
+title: 三维柱状图
+category: plotly3d
+tags: [三维, 柱状图, Mesh3d]
+summary: 在 XY 网格上用立方体柱体表示高度，并按高度用三维曲面色系平滑着色。
+difficulty: intermediate
+default_library: plotly
+order: 10
+theme: rose
+data:
+  source: data/bar3d.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: y, role: y, type: quantitative, required: true }
+      - { name: height, role: value, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: 3d
+  title: { text: 三维柱状图, loc: left }
+  xlabel: X
+  ylabel: Y
+params:
+  - { key: bar_size, type: number, default: 0.15, min: 0.02, max: 0.4 }
+  - { key: show_edges, type: bool, default: true }
+  - { key: bar_opacity, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: bar, label: 柱体, group_by: none, size: bar_size, opacity: bar_opacity, color: false }
+implementations:
+  - { library: plotly }

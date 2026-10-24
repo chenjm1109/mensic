@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="面积图叠成的山">
+  <defs>
+    <clipPath id="sq11"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq11)">
+    <rect width="512" height="512" fill="#FDFBF7"/>
+
+    <!-- 后一层：淡玫红山脊 -->
+    <path d="M100 372 V298 L152 246 L202 290 L254 210 L302 266 L358 222 L412 274 V372 Z" fill="#F6D9E0"/>
+
+    <!-- 前一层：实玫红山脊 -->
+    <path d="M100 372 V334 L152 300 L202 330 L254 286 L302 330 L358 290 L412 326 V372 Z" fill="#E05F79"/>
+
+    <!-- 基线 -->
+    <path d="M88 372 H424" stroke="#515A85" stroke-width="8" stroke-linecap="round" opacity="0.5"/>
+  </g>
+</svg>

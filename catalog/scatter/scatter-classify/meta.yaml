@@ -1,0 +1,37 @@
+id: scatter-classify
+version: 2
+status: published
+title: 带分类边界散点图
+category: scatter
+tags: [散点图, 分类, 决策边界, SVM]
+summary: 用线性 SVM 学习三类样本的决策边界，并在底色区域上叠加分组散点展示分类结果。
+difficulty: advanced
+default_library: matplotlib
+order: 60
+theme: rose
+data:
+  source: data/points.csv
+  schema:
+    columns:
+      - { name: X, role: x, type: quantitative, required: true }
+      - { name: Y, role: y, type: quantitative, required: true }
+      - { name: 类型, role: series, type: categorical, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 带分类显示的散点图, loc: center }
+  xlabel: X轴
+  ylabel: Y轴
+  ticks: { x_major: 5, x_minor: 1, y_major: 10, y_minor: 2 }
+  legend: { loc: upper center, ncols: 3 }
+params:
+  - { key: grid_step, type: number, default: 0.5, min: 0.1, max: 5 }
+  - { key: boundary_alpha, type: number, default: 0.2, min: 0, max: 1 }
+  - { key: point_size, type: number, default: 100, min: 10, max: 400 }
+  - { key: point_alpha, type: number, default: 0.5, min: 0, max: 1 }
+  - { key: kernel, type: enum, default: linear, options: [linear, rbf, poly] }
+elements:
+  - { key: point, label: 数据点, group_by: series, size: point_size, opacity: point_alpha }
+  - { key: boundary, label: 分类区域, group_by: none, opacity: boundary_alpha, color: false }
+implementations:
+  - { library: matplotlib }

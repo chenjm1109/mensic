@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="纸上一根手绘柱">
+  <defs>
+    <clipPath id="sq1"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq1)">
+    <rect width="512" height="512" fill="#FDFBF7"/>
+
+    <!-- 主体：放大到约占画布 66%（系统图标常见占比），小尺寸才立得住 -->
+    <g transform="translate(256 256) scale(1.27) translate(-258 -280)">
+
+    <!-- 纸纹：只在 512 / 256 下可见，小图标看不见 -->
+    <g fill="#E7DED0" opacity="0.6">
+      <circle cx="86" cy="104" r="3"/>
+      <circle cx="412" cy="92" r="2.5"/>
+      <circle cx="120" cy="404" r="2.5"/>
+      <circle cx="392" cy="432" r="3"/>
+      <circle cx="62" cy="256" r="2"/>
+      <circle cx="450" cy="248" r="2"/>
+    </g>
+
+    <!-- 三根手绘柱：边缘略抖，柱面纯色（不排线，保证 16px 不糊） -->
+    <g fill="#E05F79">
+      <path d="M152 351 L151 301 C 168 299 188 300 204 300 L203 351 Z"/>
+      <path d="M230 351 L231 235 C 248 233 268 234 282 236 L281 351 Z"/>
+      <path d="M308 351 L307 171 C 324 169 344 170 360 172 L359 351 Z"/>
+    </g>
+
+    <!-- 柱顶：深一档的一笔，给一点铅笔收笔的感觉 -->
+    <g stroke="#C2546A" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.75">
+      <path d="M154 302 C 172 300 190 301 203 301"/>
+      <path d="M233 237 C 250 235 268 236 281 237"/>
+      <path d="M310 173 C 327 171 344 172 358 173"/>
+    </g>
+
+    <!-- 基线（墨蓝，虚一点，像尺子画的） -->
+    <path d="M130 356 C 196 353 316 358 386 354" stroke="#515A85" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.55"/>
+
+    <!-- 应用里的手绘下划线动机 -->
+    <path d="M176 386 C 224 394 300 390 338 380" stroke="#DFA0AC" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.85"/>
+    </g>
+  </g>
+</svg>

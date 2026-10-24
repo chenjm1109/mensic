@@ -1,0 +1,32 @@
+id: bar-circular
+version: 3
+status: published
+title: 环形柱状图
+category: bar
+tags: [柱状图, 极坐标, 环形]
+summary: 同心环上以角度跨度编码数值，多个环由内向外排列。
+difficulty: advanced
+default_library: matplotlib
+order: 80
+theme: slate
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 环形柱状图, loc: left }
+  legend: { loc: center right, ncols: 1 }
+params:
+  - { key: ring_width, type: number, default: 0.8, min: 0.2, max: 1.5 }
+  - { key: inner_offset, type: number, default: 2, min: 0, max: 5 }
+  - { key: ring_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：每根环对应一个类别；默认仍按阈值取语义色，可在元素块里单独改某一环。
+elements:
+  - { key: ring, label: 环, group_by: none, size: ring_width, opacity: ring_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

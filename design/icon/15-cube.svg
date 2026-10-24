@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="等轴测数据立方">
+  <defs>
+    <clipPath id="sq15"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq15)">
+    <rect width="512" height="512" fill="#FDFBF7"/>
+
+    <g>
+      <!-- 顶面 -->
+      <path d="M256 142 L376 206 L256 270 L136 206 Z" fill="#F3AEB9"/>
+      <!-- 左面 -->
+      <path d="M136 206 L256 270 V400 L136 336 Z" fill="#E05F79"/>
+      <!-- 右面 -->
+      <path d="M376 206 L256 270 V400 L376 336 Z" fill="#C2546A"/>
+      <!-- 顶面网格：像一块三维坐标纸 -->
+      <path d="M196 174 L316 238 M316 174 L196 238" stroke="#FFFDF9" stroke-width="6" opacity="0.45" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="96 96 320 320" role="img" aria-label="涵数">
+  <!-- 应用标识（无底板版）：用于界面里的 logo、favicon。
+       颜色是品牌固定色，不跟随用户主题色——图标和 logo 不参与换色。
+       切缝靠 mask 挖空，所以放在任何底色上都成立。 -->
+  <defs>
+    <mask id="gapmark" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+      <rect width="512" height="512" fill="#fff"/>
+      <g stroke="#000" stroke-width="16" stroke-linecap="butt">
+        <line x1="316" y1="256" x2="426" y2="256"/>
+        <line x1="286" y1="308" x2="341" y2="403"/>
+      </g>
+    </mask>
+  </defs>
+  <g mask="url(#gapmark)">
+    <circle cx="256" cy="256" r="114" fill="none" stroke="#E05F79" stroke-width="72"/>
+    <path d="M406 256 A150 150 0 0 1 331 385.9 L295 323.5 A78 78 0 0 0 334 256 Z" fill="#F3AEB9"/>
+  </g>
+</svg>

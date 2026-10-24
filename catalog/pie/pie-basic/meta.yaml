@@ -1,0 +1,34 @@
+id: pie-basic
+version: 2
+status: published
+title: 基本饼图
+category: pie
+tags: [饼图, 基础, 占比]
+summary: 用扇形面积表示各部分占整体的比例，并在扇区内标注百分比与数值。
+difficulty: beginner
+default_library: matplotlib
+order: 10
+theme: rose
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+capabilities: { axes: none }   # 饼图没有直角坐标轴：轴名 / 轴范围 / 刻度 / 网格线这些配置项不显示
+
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 基本饼图, loc: left }
+  legend: { loc: center left, ncols: 1 }
+params:
+  - { key: show_labels, type: bool, default: true }
+  - { key: start_angle, type: number, default: 0, min: 0, max: 360 }
+  - { key: wedge_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：每个扇区一块，按「类别」取值分组（含图例色块）。
+elements:
+  - { key: wedge, label: 扇区, group_by: category, group_role: x, opacity: wedge_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

@@ -1,0 +1,35 @@
+id: bar-diverging
+version: 2
+status: published
+title: 正负柱状图
+category: bar
+tags: [柱状图, 正负, 发散色, 水平]
+summary: 以零基线为中心的水平柱，正值与负值分别用发散色两端着色。
+difficulty: beginner
+default_library: matplotlib
+order: 60
+theme: slate
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: y, type: ordinal, required: true }
+      - { name: 数值, role: x, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 正负柱状图, loc: left }
+  xlabel: 数值
+  ylabel: 类别
+  limits: { x: [-1200, 1500] }
+  ticks: { x_major: 500 }
+params:
+  - { key: bar_height, type: number, default: 0.8, min: 0.1, max: 1.0 }
+  - { key: bar_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：正负发散色属于语义配色，不开放颜色，只接管柱高 / 透明度。
+elements:
+  - { key: bar, label: 柱子, group_by: none, size: bar_height, opacity: bar_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

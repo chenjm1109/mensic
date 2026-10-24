@@ -1,0 +1,41 @@
+id: area-percent
+version: 2
+status: published
+title: 百分比堆叠面积图
+category: area
+tags: [面积图, 堆叠, 百分比, 构成]
+summary: 先把各系列归一化为百分比再堆叠，突出随时间变化的相对构成。
+difficulty: intermediate
+default_library: matplotlib
+order: 20
+theme: rose
+data:
+  source: data/percent.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: 类别, role: series, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 百分比堆叠面积图, loc: left }
+  xlabel: X轴
+  ylabel: 百分比 (%)
+  limits:
+    x: [0, 70]
+    y: [0, 100]
+  ticks:
+    x_major: 5
+    y_major: 20
+    y_minor: 5
+  legend: { loc: upper center, ncols: 4 }
+params:
+  - { key: divider, type: bool, default: true }
+  - { key: area_alpha, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: area, label: 面积, group_by: series, opacity: area_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

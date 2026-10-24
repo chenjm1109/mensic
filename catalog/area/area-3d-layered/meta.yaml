@@ -1,0 +1,40 @@
+id: area-3d-layered
+version: 3
+status: published
+title: 三维分层面积图
+category: area
+tags: [面积图, 三维, 分层, 山脊]
+summary: 在三维空间中把多条面积曲线沿深度方向排列，形成层叠的山脊式曲面。
+difficulty: advanced
+default_library: matplotlib
+order: 60
+theme: rose
+data:
+  source: data/layered3d.csv
+  schema:
+    columns:
+      - { name: 数据集, role: series, type: categorical, required: true }
+      - { name: X, role: x, type: quantitative, optional: true }
+      - { name: Y, role: y, type: quantitative, optional: true }
+      - { name: Z, role: value, type: quantitative, optional: true }
+      - { name: 类别, role: series, type: categorical, optional: true }
+      - { name: 数值, role: value, type: quantitative, optional: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: 3d
+  title: { text: 三维分层面积图, loc: center }
+  xlabel: X
+  ylabel: 类别
+  limits:
+    x: [0, 70]
+    y: [0, 8]
+  legend: false
+  margin: { l: 0, r: 0, t: 50, b: 0 }
+params:
+  - { key: num_layers, type: integer, default: 8, min: 2, max: 12 }
+  - { key: opacity, type: number, default: 0.6, min: 0.1, max: 1 }
+elements:
+  - { key: ridge, label: 山脊, group_by: none, opacity: opacity, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

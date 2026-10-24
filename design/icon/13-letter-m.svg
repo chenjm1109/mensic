@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="几何字母 m">
+  <defs>
+    <clipPath id="sq13"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq13)">
+    <rect width="512" height="512" fill="#FDFBF7"/>
+
+    <!-- 两条拱 = 两段折线的形状；整体再放大到 ~62% -->
+    <g transform="translate(256 262) scale(1.18) translate(-236 -262)"
+       fill="none" stroke="#E05F79" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M126 372 V250 C126 200 210 190 236 250 V372"/>
+      <path d="M236 250 C262 190 346 200 346 250 V372"/>
+    </g>
+  </g>
+</svg>

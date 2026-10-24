@@ -1,0 +1,32 @@
+id: 3d-contour
+version: 2
+status: draft
+title: 三维等高线图
+category: plotly3d
+tags: [三维, 等高线, Surface]
+summary: 用 go.Surface 的原生等高线在各自高度上绘制彩色等值线，隐藏曲面本身。
+difficulty: advanced
+default_library: plotly
+order: 40
+theme: rose
+data:
+  source: data/contour3d.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: y, role: y, type: quantitative, required: true }
+      - { name: z, role: value, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: 3d
+  title: { text: 三维等高线图, loc: left }
+  xlabel: X
+  ylabel: Y
+params:
+  - { key: num_levels, type: integer, default: 20, min: 5, max: 40 }
+  - { key: line_width, type: number, default: 4, min: 1, max: 10 }
+  - { key: opacity, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: contour, label: 等高线, group_by: none, size: line_width, opacity: opacity, color: false }
+implementations:
+  - { library: plotly }

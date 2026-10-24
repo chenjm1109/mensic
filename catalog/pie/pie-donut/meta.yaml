@@ -1,0 +1,35 @@
+id: pie-donut
+version: 2
+status: published
+title: 环形饼图
+category: pie
+tags: [饼图, 环形, 占比]
+summary: 中空环形版本的基本饼图，环形区域承载占比信息，中心留白更轻盈。
+difficulty: beginner
+default_library: matplotlib
+order: 20
+theme: rose
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+capabilities: { axes: none }   # 饼图没有直角坐标轴：轴名 / 轴范围 / 刻度 / 网格线这些配置项不显示
+
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 环形饼图, loc: left }
+  legend: { loc: center left, ncols: 1 }
+params:
+  - { key: show_labels, type: bool, default: true }
+  - { key: start_angle, type: number, default: 0, min: 0, max: 360 }
+  - { key: hole, type: number, default: 0.5, min: 0, max: 0.9 }
+  - { key: wedge_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：每个扇区一块，按「类别」取值分组（含图例色块）。
+elements:
+  - { key: wedge, label: 扇区, group_by: category, group_role: x, opacity: wedge_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

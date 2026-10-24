@@ -1,0 +1,42 @@
+id: scatter-basic
+version: 4
+status: published
+title: 基本散点图
+category: scatter
+tags: [散点图, 基础, 投影]
+summary: 用散点呈现两个连续变量的关系，并在坐标轴边缘用刻度线标出投影分布。
+difficulty: beginner
+default_library: matplotlib
+order: 10
+theme: rose
+data:
+  source: data/scatter.csv
+  schema:
+    columns:
+      - { name: X轴, role: x, type: quantitative, required: true }
+      - { name: Y轴, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 基本散点图, loc: left }
+  xlabel: X轴
+  ylabel: Y轴
+  ticks:
+    x_major: 5
+    x_minor: 1
+    y_major: 10
+    y_minor: 2
+  legend: false
+params:
+  - { key: point_size, type: number, default: 100, min: 10, max: 400 }
+  - { key: alpha, type: number, default: 0.5, min: 0.1, max: 1 }
+  - { key: show_projection, type: bool, default: true }
+# 图形元素：界面按它显示「颜色 / 大小 / 透明度」的配置块。
+# size / opacity 指向上面的案例参数（默认值由它们给，这里只说"归谁管"）；
+# 颜色默认取主题色板。有分组列时每个分组自动各出一块（见 features/editor/elements.ts）。
+elements:
+  - { key: point, label: 数据点, group_by: none, size: point_size, opacity: alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

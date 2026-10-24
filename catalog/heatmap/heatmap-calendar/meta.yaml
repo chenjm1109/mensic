@@ -1,0 +1,31 @@
+id: heatmap-calendar
+version: 2
+status: draft
+title: 日历热力图
+category: heatmap
+tags: [热力图, 日历, 年度]
+summary: 以 3×4 月历网格展示全年每日数值，用连续色映射每一天的高低。
+difficulty: advanced
+default_library: matplotlib
+order: 30
+theme: rose
+data:
+  source: data/calendar_values.csv
+  schema:
+    columns:
+      - { name: 月份, role: series, type: categorical, required: true }
+      - { name: 日, role: value, type: quantitative, required: true }
+      - { name: 周, role: y, type: ordinal, required: true }
+      - { name: 星期, role: x, type: ordinal, required: true }
+      - { name: 数值, role: color, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: figure
+  title: { text: 2024全年日历热力图, loc: left }
+params:
+  - { key: show_values, type: bool, default: true }
+  - { key: cell_alpha, type: number, default: 1, min: 0, max: 1 }
+elements:
+  - { key: cell, label: 色块, group_by: none, opacity: cell_alpha, color: false }
+implementations:
+  - { library: matplotlib }

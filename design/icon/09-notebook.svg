@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="摊开的笔记本">
+  <defs>
+    <clipPath id="sq9"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <g clip-path="url(#sq9)">
+    <rect width="512" height="512" fill="#F1EAE0"/>
+
+    <!-- 左页：数据（表格） -->
+    <path d="M108 160 L252 132 L252 380 L108 400 Z" fill="#FFFDF9" stroke="#DED3C1" stroke-width="4" stroke-linejoin="round"/>
+    <!-- 右页：图（折线） -->
+    <path d="M252 132 L396 160 L396 400 L252 380 Z" fill="#FFFDF9" stroke="#DED3C1" stroke-width="4" stroke-linejoin="round"/>
+    <!-- 书脊 -->
+    <path d="M252 132 V380" stroke="#D8CDBB" stroke-width="8"/>
+
+    <!-- 左页：一张数据表（两列 × 三行的小格子） -->
+    <g stroke="#B9C7DD" stroke-width="12" stroke-linecap="round">
+      <path d="M138 204 H172"/><path d="M184 204 H218"/>
+      <path d="M138 244 H172"/><path d="M184 244 H218"/>
+      <path d="M138 284 H172"/><path d="M184 284 H218"/>
+      <path d="M138 324 H172"/><path d="M184 324 H218"/>
+    </g>
+
+    <path d="M278 336 L304 318 L320 328 L340 282 L368 260"
+          fill="none" stroke="#E05F79" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="368" cy="260" r="13" fill="#E05F79"/>
+  </g>
+</svg>

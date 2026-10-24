@@ -1,0 +1,25 @@
+# 绘图库画像：一个擅长领域一种，作为多库对比的维度
+- id: matplotlib
+  title: matplotlib
+  domain: 精细静态出版 / 教学
+  paradigm: 命令式 · 静态
+  interactive: false
+  three_d: false
+  export: [png, svg, pdf]
+  summary: 像素级可控、矢量导出、中文教程事实标准。
+- id: plotly
+  title: Plotly
+  domain: 交互式通用 Web（含 3D）
+  paradigm: 命令式 · 交互
+  interactive: true
+  three_d: true
+  export: [png, svg, html, json]
+  summary: 图表类型最全，自带真 3D，plotly.js 零后端即可嵌入网页。
+- id: altair
+  title: Altair
+  domain: 声明式 / 语法之图
+  paradigm: 声明式 · 数据驱动
+  interactive: true
+  three_d: false
+  export: [png, svg, html, json]
+  summary: Vega-Lite 声明式范式，链接刷选、统计变换、代码极短。

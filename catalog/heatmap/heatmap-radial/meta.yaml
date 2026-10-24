@@ -1,0 +1,30 @@
+id: heatmap-radial
+version: 2
+status: published
+title: 径向热力图
+category: heatmap
+tags: [热力图, 极坐标, 径向]
+summary: 在极坐标下用一圈圈彩色格块展示二维矩阵，形成径向热力环带。
+difficulty: advanced
+default_library: matplotlib
+order: 40
+theme: rose
+data:
+  source: data/radial_grid.csv
+  schema:
+    columns:
+      - { name: 环, role: series, type: ordinal, required: true }
+      - { name: 角度, role: x, type: ordinal, required: true }
+      - { name: 数值, role: color, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: polar
+  title: { text: 径向热力图, loc: left }
+params:
+  - { key: gap_angle, type: number, default: 10, min: 0, max: 90 }
+  - { key: cell_alpha, type: number, default: 1, min: 0, max: 1 }
+elements:
+  - { key: cell, label: 色块, group_by: none, opacity: cell_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }

@@ -1,0 +1,40 @@
+id: bar-basic
+version: 2
+status: published
+title: 基本柱状图
+category: bar
+tags: [柱状图, 基础, 阈值]
+summary: 对柱高做阈值分类着色，并显示数值标签与参考线。
+difficulty: beginner
+default_library: matplotlib
+order: 10
+theme: rose
+data:
+  source: data/values.csv
+  schema:
+    columns:
+      - { name: 类别, role: x, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 基本柱状图, loc: left }
+  xlabel: 类别
+  ylabel: 数值
+  limits:
+    y: [0, 80]
+  ticks:
+    y_major: 20
+  legend: { loc: upper right, ncols: 3 }
+params:
+  - { key: low, type: number, default: 10, min: 0, max: 100 }
+  - { key: high, type: number, default: 60, min: 0, max: 200 }
+  - { key: show_labels, type: bool, default: true }
+  - { key: bar_width, type: number, default: 0.8, min: 0.1, max: 1.0 }
+  - { key: bar_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：阈值着色属于语义配色，不开放颜色，只接管柱宽 / 透明度。
+elements:
+  - { key: bar, label: 柱子, group_by: none, size: bar_width, opacity: bar_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

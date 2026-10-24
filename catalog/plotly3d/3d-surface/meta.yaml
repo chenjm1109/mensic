@@ -1,0 +1,32 @@
+id: 3d-surface
+version: 2
+status: draft
+title: 三维曲面图
+category: plotly3d
+tags: [三维, 曲面, Surface]
+summary: 用 plotly 的 go.Surface 绘制双高斯叠加曲面，并以三维曲面色系着色、叠加白色网格线。
+difficulty: intermediate
+default_library: plotly
+order: 20
+theme: rose
+data:
+  source: data/surface.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: y, role: y, type: quantitative, required: true }
+      - { name: z, role: value, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: 3d
+  title: { text: 三维曲面图, loc: left }
+  xlabel: X
+  ylabel: Y
+params:
+  - { key: show_grid, type: bool, default: true }
+  - { key: grid_width, type: number, default: 2, min: 1, max: 8 }
+  - { key: opacity, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: surface, label: 曲面, group_by: none, size: grid_width, opacity: opacity, color: false }
+implementations:
+  - { library: plotly }

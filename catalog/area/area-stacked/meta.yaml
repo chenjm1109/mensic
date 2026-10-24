@@ -1,0 +1,42 @@
+id: area-stacked
+version: 2
+status: published
+title: 堆叠面积图
+category: area
+tags: [面积图, 堆叠, 累积, 构成]
+summary: 多条序列沿纵轴依次累积堆叠，同时展示总量变化与内部构成。
+difficulty: intermediate
+default_library: matplotlib
+order: 10
+theme: rose
+data:
+  source: data/stacked.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: 类别, role: series, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 堆叠面积图, loc: left }
+  xlabel: X轴
+  ylabel: 数值
+  limits:
+    x: [0, 70]
+    y: [0, 18]
+  ticks:
+    x_major: 5
+    y_major: 5
+    y_minor: 1
+  legend: { loc: upper center, ncols: 4 }
+params:
+  - { key: divider, type: bool, default: true }
+  - { key: show_peaks, type: bool, default: true }
+  - { key: area_alpha, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: area, label: 面积, group_by: series, opacity: area_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

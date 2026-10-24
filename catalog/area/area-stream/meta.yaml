@@ -1,0 +1,41 @@
+id: area-stream
+version: 2
+status: published
+title: 河流图
+category: area
+tags: [面积图, 河流图, 主题河流, 主题]
+summary: 以 wiggle 基线错落堆叠的河流图，突出各系列在时间轴上的此消彼长。
+difficulty: advanced
+default_library: matplotlib
+order: 40
+theme: rose
+data:
+  source: data/stream.csv
+  schema:
+    columns:
+      - { name: x, role: x, type: quantitative, required: true }
+      - { name: 类别, role: series, type: categorical, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 河流图, loc: left }
+  xlabel: X轴
+  ylabel: 数值
+  limits:
+    x: [0, 70]
+    y: [-7, 9]
+  ticks:
+    x_major: 5
+    y_major: 5
+    y_minor: 1
+  legend: { loc: upper center, ncols: 4 }
+params:
+  - { key: divider, type: bool, default: true }
+  - { key: area_alpha, type: number, default: 1, min: 0.1, max: 1 }
+elements:
+  - { key: area, label: 面积, group_by: series, opacity: area_alpha }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

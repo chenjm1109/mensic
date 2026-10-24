@@ -1,0 +1,33 @@
+id: heatmap-mantel
+version: 3
+status: draft
+title: 相关性网络热图
+category: heatmap
+tags: [热力图, 相关性, Mantel, 网络]
+summary: 上/右三角用方块表示特征相关性，并叠加物种-特征连接网络与 Mantel 检验图例。
+difficulty: advanced
+default_library: matplotlib
+order: 60
+theme: rose
+data:
+  source: data/mantel_tables.csv
+  schema:
+    columns:
+      - { name: 表, role: series, type: categorical, required: true }
+      - { name: 行, role: y, type: ordinal, required: true }
+      - { name: 列, role: x, type: ordinal, required: true }
+      - { name: 数值, role: color, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 相关性网络热图, loc: center }
+  limits: { x: [-2, 20], y: [-1, 13] }
+params:
+  - { key: node_size, type: integer, default: 4, min: 1, max: 10 }
+  - { key: cell_alpha, type: number, default: 1, min: 0, max: 1 }
+  - { key: link_alpha, type: number, default: 1, min: 0, max: 1 }
+elements:
+  - { key: cell, label: 相关方块, group_by: none, opacity: cell_alpha, color: false }
+  - { key: link, label: 连接线, group_by: none, opacity: link_alpha, color: false }
+implementations:
+  - { library: matplotlib }

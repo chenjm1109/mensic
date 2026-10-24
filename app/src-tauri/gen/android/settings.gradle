@@ -1,0 +1,20 @@
+// Chaquopy 发布在 Maven Central（只有普通模块坐标，没有 Gradle 插件 marker），
+// 因此需要把插件 id 映射到模块坐标，plugins {} DSL 才能解析。
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "com.chaquo.python") {
+                useModule("com.chaquo.python:gradle:${requested.version}")
+            }
+        }
+    }
+}
+
+include ':app'
+
+apply from: 'tauri.settings.gradle'

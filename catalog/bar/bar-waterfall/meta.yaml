@@ -1,0 +1,36 @@
+id: bar-waterfall
+version: 2
+status: published
+title: 瀑布图
+category: bar
+tags: [柱状图, 瀑布, 累计, 增减]
+summary: 用浮动柱表示从初始值开始的一连串增减，直观展示累计变化过程。
+difficulty: intermediate
+default_library: matplotlib
+order: 70
+theme: slate
+data:
+  source: data/steps.csv
+  schema:
+    columns:
+      - { name: 步骤, role: x, type: ordinal, required: true }
+      - { name: 数值, role: y, type: quantitative, required: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  projection: rect
+  title: { text: 瀑布图, loc: right }
+  xlabel: 步骤
+  ylabel: 数值
+  limits: { y: [0, 3300] }
+  ticks: { y_major: 500 }
+params:
+  - { key: bar_width, type: number, default: 0.6, min: 0.1, max: 0.95 }
+  - { key: show_labels, type: bool, default: true }
+  - { key: bar_alpha, type: number, default: 1, min: 0, max: 1 }
+# 图形元素：正负增减色属于语义配色，不开放颜色，只接管柱宽 / 透明度。
+elements:
+  - { key: bar, label: 柱子, group_by: none, size: bar_width, opacity: bar_alpha, color: false }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

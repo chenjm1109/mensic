@@ -1,0 +1,41 @@
+id: line-smooth
+version: 2
+status: published
+title: 平滑折线图
+category: line
+tags: [折线图, 平滑, 插值, 多序列]
+summary: 对多条折线做样条平滑，弱化锯齿、强化长期趋势。
+difficulty: intermediate
+default_library: matplotlib
+order: 30
+theme: slate
+data:
+  source: data/gdp.csv
+  schema:
+    columns:
+      - { name: 年份, role: x, type: quantitative, required: true }
+      - { name: 博茨瓦纳, role: series, type: quantitative, optional: true }
+      - { name: 布基纳法索, role: series, type: quantitative, optional: true }
+      - { name: 布隆迪, role: series, type: quantitative, optional: true }
+      - { name: 喀麦隆, role: series, type: quantitative, optional: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 平滑折线图, loc: left }
+  xlabel: 年份
+  ylabel: GDP（亿美元）
+  limits:
+    x: [1960, 2025]
+    y: [0, 530]
+  ticks:
+    x_major: 10
+    x_minor: 1
+    y_major: 100
+  legend: { loc: upper left, ncols: 2 }
+params:
+  - { key: line_width, type: number, default: 2, min: 1, max: 6 }
+elements:
+  - { key: line, label: 折线, group_by: column, size: line_width }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }

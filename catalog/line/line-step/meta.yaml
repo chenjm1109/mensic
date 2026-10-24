@@ -1,0 +1,43 @@
+id: line-step
+version: 2
+status: published
+title: 阶梯折线图
+category: line
+tags: [折线图, 阶梯, 多序列, 参考线]
+summary: 用阶梯折线表示阶段性离散变化，并标注 2016–2020 区间与 250 亿美元参考线。
+difficulty: intermediate
+default_library: matplotlib
+order: 60
+theme: slate
+data:
+  source: data/gdp.csv
+  schema:
+    columns:
+      - { name: 年份, role: x, type: quantitative, required: true }
+      - { name: 博茨瓦纳, role: series, type: quantitative, optional: true }
+      - { name: 布基纳法索, role: series, type: quantitative, optional: true }
+      - { name: 布隆迪, role: series, type: quantitative, optional: true }
+      - { name: 喀麦隆, role: series, type: quantitative, optional: true }
+presentation:
+  canvas: { size: [8, 5], dpi: 150 }
+  title: { text: 阶梯折线图, loc: left }
+  xlabel: 年份
+  ylabel: GDP（亿美元）
+  limits:
+    x: [1999.5, 2023.5]
+    y: [0, 505]
+  ticks:
+    x_major: 10
+    x_minor: 1
+    y_major: 100
+  legend: { loc: upper left, ncols: 2 }
+params:
+  - { key: line_width, type: number, default: 3, min: 1, max: 6 }
+  - { key: marker_size, type: number, default: 5, min: 2, max: 16 }
+elements:
+  - { key: line, label: 折线, group_by: column, size: line_width }
+  - { key: marker, label: 节点, group_by: column, size: marker_size }
+implementations:
+  - { library: matplotlib }
+  - { library: plotly }
+  - { library: altair }
